@@ -24,19 +24,7 @@ module.exports = async (req, res) => {
                 return res.status(200).json(recipe);
             }
         }
-        // const {data} = await axios.get(`https://api.spoonacular.com/recipes/${id}/information?apiKey=${API_KEY}`);
-        // let prueba = {
-        //     Id: data.id,
-        //     Nombre: data.title
-        // }
-        // return prueba.Id && prueba.Nombre ? res.status(200).json({data}) : res.status(404).send('NOT FOUND');
-
     }
-        // else{
-        //     const receta = await recipe.findOne();
-        //     return res.json(receta);
-        // }
-        // return recipe.Nombre && recipe.Id ? res.json(recipe) : res.status(404).send('No se encontró esta receta');
     catch (error) {
         res.status(500).send(error.message);
         //'Algo no salió como se esperaba ¯\_(ツ)_/¯'
