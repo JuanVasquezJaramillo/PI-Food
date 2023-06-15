@@ -1,0 +1,28 @@
+.contenedor{
+    /* display: flex;
+    flex-direction: column; */
+    /* background-image:  linear-gradient( #11862b,  #45fa1800);
+    border: 5px solid black;
+    height: fit-content;
+    width: auto;
+    text-align: center; */
+    display: flex;
+    flex-direction: column;
+    background-color: #fdddca;
+    border: 5px solid black;
+    border-radius: 5px;
+    text-align: center;
+}
+.contenedor{
+    overflow: hidden;
+}
+.contenedor:hover{
+    -webkit-transform: scale(1.3);transform: scale(1.3);
+}
+
+.list{
+    width: 92vw;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: 20px;
+}

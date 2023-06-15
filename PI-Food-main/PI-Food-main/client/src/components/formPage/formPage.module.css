@@ -1,0 +1,35 @@
+.contenedor{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.subContenedor{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.pruebaI{
+    /* width: fit-content;
+    height: fit-content; */
+    width: 50%;
+}
+
+.resumen{
+    width: 50%;
+    height: 3cm;
+}
+
+.boton{
+    width: fit-content;
+    height: fit-content;
+}
+
+.nav{
+    height:1.78cm;
+    background-image: url('../../assets/wallPaperFood.jpg');
+}

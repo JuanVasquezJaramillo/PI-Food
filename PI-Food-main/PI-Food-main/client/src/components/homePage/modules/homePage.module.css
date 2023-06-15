@@ -1,0 +1,29 @@
+.barraNav{
+    background-color:burlywood;
+    
+}
+.buscador{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+.crear{
+    display: flex;
+    justify-content:space-evenly;
+    flex-direction: row;
+}
+.boton{
+    width: fit-content;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.contenedor{
+    display: flex;
+    justify-content: center;
+}
+
+.prueba{
+    height:1.78cm;
+    background-image: url('../../../assets/wallPaperFood.jpg');
+}
