@@ -18,6 +18,5 @@ router.get("/recipes/name", getRecipesByName);
 router.get("/recipes/:id", getRecipesByID); //"/recipes/:idRecipe"
 router.post("/recipes/", postRecipe);
 router.get("/diets", getDiets);
-router.post("/diets/", postDiets);
 
 module.exports = router;
