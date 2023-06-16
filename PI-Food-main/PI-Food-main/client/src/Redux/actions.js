@@ -2,14 +2,23 @@ import axios from "axios";
 
 
 
+// export const getRecipes = ()=>{
+//         return async (dispatch) => {
+//             var json = (await axios.get("http://localhost:3001/recipes")); //console.log("DESDE", json.data.response);
+//             return dispatch({
+//                 type: "GET_RECIPES",
+//                 payload: json.data.response,
+//             });
+//         };
+// };
 export const getRecipes = ()=>{
-        return async (dispatch) => {
-            var json = await axios.get("http://localhost:3001/recipes"); //console.log("DESDE", json.data.response);
-            return dispatch({
-                type: "GET_RECIPES",
-                payload: json.data.response,
-            });
-        };
+    return async (dispatch) => {
+        const response = (await axios.get("http://localhost:3001/recipes")).data.response; //console.log("DESDE", json.data.response);
+        return dispatch({
+            type: "GET_RECIPES",
+            payload: response,
+        });
+    };
 };
 
 export const getRecipesByName = (recipe) => {
@@ -26,18 +35,17 @@ export const getRecipesByName = (recipe) => {
     }
 };
 
-export const getDiets = ()=>{
-    return async (dispatch) =>{
-        try {
-            let response = (await axios.get(`http://localhost:3001/diets`)).data.results
+export const getDiets = () => async (dispatch) => {
+    try {
+            let response = (await axios.get(`http://localhost:3001/diets`))
             return dispatch({
                 type: "GET_DIETS",
-                payLoad: response
+                payLoad: response.data
             })
-        } catch (error) {
-            
-        }
+    } catch (error) {
+            return error.message
     }
+    
 }
 
 export const filterTypeDiets = (diet) => {
@@ -54,20 +62,19 @@ export const orderRecipes = (recipe) => {
     }
 };
 
-export const postRecipe = (recipe) => {
+export const postRecipe = (recipe) => async (dispatch) => {
     try {
-        return async (dispatch) =>{
-            let response = await axios.post(`http://localhost:3001/recipes/${recipe}`)
+            const response = await axios.post(`http://localhost:3001/recipes`, recipe)
             return dispatch({
                 type: "POST_RECIPE",
                 payLoad: response
             })
-        }
     } catch (error) {
-        
+        throw error('estoy fallando en postRecipe');
     }
 }
 
+//Para limpiar el detail
 // export const cleanComp = ()=>{
 //     return{
 //         type: 'CLEAN_COMP'

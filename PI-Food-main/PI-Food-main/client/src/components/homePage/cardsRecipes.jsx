@@ -6,8 +6,9 @@ const Cards = ({allRecipes}) => {
       <div className={estilo.list}>
          {
             
-            allRecipes?.map(({title, image, diets})=>{
+            allRecipes?.map(({id, title, image, diets})=>{
                return <Card
+               key={id}
                 title={title}
                 image={image}
                 diets={diets}

@@ -5,40 +5,37 @@ import Form from './components/formPage/formPage';
 import NavBar from './components/homePage/searchBar';
 import Detail from './components/detailPage/detailPage'
 import axios from 'axios';
-import {useState} from 'react';
+import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Card from './components/homePage/cardRecipe';
+import { useDispatch, useSelector } from 'react-redux';
+import { getRecipes, getRecipesByName, getDiets } from './Redux/actions';
 
 function App() {
-  // const location = useLocation();
-  // const navigate = useNavigate();
+  
+  // const allRecipes = useSelector((state) => state.recipes)
+
+  // const [currentPag, setCurrentPag] = useState(1);
+  // const [cantidadPag, setCantidadPag] = useState(10);
 
 
+  // const dispatch = useDispatch()
+  // const aux = allRecipes.length / cantidadPag
+  // useEffect(() => {
+  //   dispatch(getRecipes());
+  // }, [dispatch])
 
-  // const [recipes, setRecipes] = useState([]);
-  //   const onSearch = async (name) => {
-  //       try {
-  //           const {results} = (await axios.get(`http://localhost:3001/recipes/name?name=${name}`)).data
-  //           if(results) {
-  //              setRecipes((oldRecipes) => [...oldRecipes, results]);
-  //           }
-  //           else {
-  //              alert('¡No hay recetas con este nombre!');
-  //           }
-  //       } catch (error) {
-          
-  //       }
-  //     }
+  // console.log("probandoPag", aux);
 
 
   return (
     <div className="App">
-      <Routes> 
-            <Route path='/' element={<Loading/>}/>
-            {/* <Home onSearch={onSearch} recipes={recipes}/> */}
-            <Route path='/home' element={<Home/>}/>
-            <Route path='/form' element={<Form/>}/>
-            <Route path='/detail/:name' element={<Detail/>}/>
+      <Routes>
+        <Route path='/' element={<Loading />} />
+        {/* <Home onSearch={onSearch} recipes={recipes}/> */}
+        <Route path='/home' element={<Home />} />
+        <Route path='/form' element={<Form />} />
+        <Route path='/detail/:name' element={<Detail />} />
       </Routes>
     </div>
   );

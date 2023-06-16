@@ -5,19 +5,19 @@ import axios from 'axios';
 import {useState, useEffect} from 'react';
 import Cards from './cardsRecipes';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRecipes, getRecipesByName} from '../../Redux/actions';
+import { getRecipes, getRecipesByName, getDiets} from '../../Redux/actions';
 
 const Home = () => {
     const dispatch = useDispatch()
     const allRecipes = useSelector((state) => state.recipes)
     const [name, setName] = useState('');
+  
+   console.log("PROBANDO HOME", allRecipes)
 
+   useEffect(() => {
+    dispatch(getRecipes())
+}, [dispatch])
 
-    useEffect(() => {
-        dispatch(getRecipes());
-    }, [dispatch])
-
-    
 
     const handleChange = (event) => {
         event.preventDefault()
@@ -47,6 +47,7 @@ const Home = () => {
             </div>
         </div>
         <div className={estilo.contenedor}>
+
             <Cards allRecipes={allRecipes}></Cards>
         </div>
     </div>
