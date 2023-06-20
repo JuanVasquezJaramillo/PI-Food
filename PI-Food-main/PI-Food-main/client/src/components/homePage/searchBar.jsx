@@ -8,24 +8,32 @@ const SearchBar = () => {
       <div>
          <div className={estilo.crear}>
             {
-               location.pathname === '/form' ?
+               location.pathname === '/form' 
+                  ?
                   <button disabled id='btnForm'></button>
                   :
                   <Link to='/form'>
-                     <button className={estilo.boton}>CREA UNA RECETA</button>
+                     <button title='CREA UNA RECETA' className={estilo.boton}>CREA UNA RECETA</button>
                   </Link>
             }
             {
-               location.pathname === '/home' ?
+               location.pathname === '/home' 
+                  ?
                   <button disabled id='btn'></button>
                   :
                   <Link to='/home'>
-                     <button className={estilo.boton} id='btn'>INICIO</button>
+                     <button title='INICIO' className={estilo.boton} id='btn'>INICIO</button>
                   </Link>
             }
-            <Link to='/about'>
-               <button className={estilo.boton}>ACERCA DE</button>
-            </Link>
+            {
+               location.pathname === '/about' 
+               ?
+               <button disabled id='btnAbout'></button>
+               :
+               <Link to='/about'>
+                  <button title='CRÉDITOS' className={estilo.boton}>CRÉDITOS</button>
+               </Link>
+            }
          </div>
       </div>
    );

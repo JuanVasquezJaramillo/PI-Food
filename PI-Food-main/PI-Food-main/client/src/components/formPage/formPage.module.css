@@ -2,6 +2,8 @@
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-content: center;
+    /* background-color:#FFC300; */
 }
 
 .subContenedor{
@@ -10,6 +12,12 @@
     flex-wrap: wrap;
     align-content: center;
     justify-content: center;
+    border-top: 2px solid var(--cnegro);
+    max-width: fit-content;
+    padding: 30px 50px;
+    margin: auto;
+    margin-top: 10px;
+    background-color:cornflowerblue;
 }
 
 
