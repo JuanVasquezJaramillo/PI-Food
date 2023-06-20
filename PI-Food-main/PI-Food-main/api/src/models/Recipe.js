@@ -33,6 +33,10 @@ module.exports = (sequelize) => {
     Paso_A_Paso:{
       type: DataTypes.STRING,
       allowNull: false
+    },
+    Diets:{
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {timestamps: false});

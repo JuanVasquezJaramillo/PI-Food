@@ -19,7 +19,7 @@ module.exports = async (req, res) => {
                 Resumen: data.summary.replace("", ""), //Estos valores los tomé analizando el obj JSON que retorna una request al encontrar la receta
                 Health_Score: data.healthScore,
                 PasoAPaso: data.instructions,
-                Dieta: data.diets.join(', ')
+                Diets: data.diets.join(', ')
                 }
                 return res.status(200).json(recipe);
             }
