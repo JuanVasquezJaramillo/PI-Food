@@ -3,40 +3,31 @@ import { useDispatch, useSelector } from 'react-redux';
 import estilo from '../formPage/formPage.module.css'
 import NavBar from '../homePage/searchBar';
 import { getDiets, postRecipe } from '../../Redux/actions';
+
+
 const Form = () => {
 
-    
-    
     const dispatch = useDispatch();
-    const listDiets = useSelector((state) => state.diets)
-    const lis = listDiets?.map((e) => e);
-   
-    console.log("ProbandoForm", listDiets)
-
-    useEffect(() => {
-        dispatch(getDiets())
-    }, [dispatch])
-    
-
-
-
-
-    //const listDiets = useSelector((state) => state.diets)
-    // const listaDietas = listDiets.map((elemento) => elemento.Dietas);
-    // useEffect(() => {
-    //     dispatch(getDiets());
-    // }, [dispatch])
-    //console.log("PROBANDO DESDE FORM",listDiets);
     const [recipeInfo, setRecipeInfo] = useState(
         {
             Nombre: '',
             Imagen: '',
             Resumen_Del_Plato: '',
             Health_Score: '1',
-            diets: [],
+            Diets: [],
             Paso_A_Paso: ''
         });
+    const listDiets = useSelector((state) => state.diets)
+    const lis = listDiets?.map((elemento) => elemento);
 
+    useEffect(() => {
+        dispatch(getDiets())
+    }, [dispatch])
+    
+    console.log("PROBANDO DESDE FORM",listDiets);
+
+
+    //HANDLERS
     const handleSubmit = (event) => {
         event.preventDefault();
         if (!recipeInfo.Nombre) {
@@ -51,7 +42,7 @@ const Form = () => {
             Imagen: '',
             Resumen_Del_Plato: '',
             Health_Score: '1',
-            diets: [],
+            Diets: [],
             Paso_A_Paso: ''
         })
     };
@@ -67,15 +58,15 @@ const Form = () => {
 
     const handleDietChange = (event) => {
         if (event.target.checked) {
-            setRecipeInfo({ ...recipeInfo, diets: [...recipeInfo.diets, event.target.value] })
+            setRecipeInfo({ ...recipeInfo, Diets: [...recipeInfo.Diets, event.target.value] })
         }
         if (!event.target.checked) {
             setRecipeInfo({
                 ...recipeInfo,
-                diets: [recipeInfo.diets.filter((dieta) => dieta !== event.target.value)]
+                Diets: recipeInfo.Diets.filter((dieta) => dieta !== event.target.value)
             })
         }
-    }
+    };   
 
     return (
         <div>
@@ -93,8 +84,7 @@ const Form = () => {
                             name="Nombre"
                             onChange={(event) => handleChange(event)}
                         />
-                        <span>{recipeInfo.Nombre.length === 0 && "POR FAVOR LLENA ESTA CASILLA"}</span>
-
+                        <label style={{color: 'red'}}>{recipeInfo.Nombre.length === 0 && "POR FAVOR LLENA ESTA CASILLA"}</label>
 
                         <label htmlFor='puntajeSaludable'>Health Score</label>
                         <input
@@ -107,9 +97,7 @@ const Form = () => {
                             onChange={(evento) => handleChange(evento)}
                         />
                         <label htmlFor="puntajeEnNumero">{recipeInfo.Health_Score}</label>
-                        <span>{recipeInfo.Health_Score === '1' && "POR FAVOR ELIGE UN NIVEL"}</span>
-
-
+                        <label style={{color: 'red'}}>{recipeInfo.Health_Score === '1' && "POR FAVOR ELIGE UN NIVEL"}</label>
 
                         <label htmlFor="summaryRecipe">Resumen de la Receta</label>
                         <input
@@ -119,7 +107,8 @@ const Form = () => {
                             value={recipeInfo.Resumen_Del_Plato}
                             onChange={(event) => handleChange(event)}
                         />
-                        <span>{recipeInfo.Resumen_Del_Plato === '' && 'POR FAVOR, AGREGA UN RESUMEN'}</span>
+
+                        <label style={{color:'red'}}>{recipeInfo.Resumen_Del_Plato === '' && 'POR FAVOR, AGREGA UN RESUMEN'}</label>
 
                         <label htmlFor="instructionsRecipe">Paso a paso de la Receta</label>
                         <input
@@ -129,8 +118,9 @@ const Form = () => {
                             value={recipeInfo.Paso_A_Paso}
                             onChange={(event) => handleChange(event)}
                         />
+                        <label style={{color:'red'}}>{recipeInfo.Paso_A_Paso === '' && 'POR FAVOR, AGREGA EL PASO A PASO'}</label>
 
-                        <label htmlFor="imgRecipe">agrega una URL para la imagen de la receta!</label>
+                        <label htmlFor="imgRecipe">Agrega una URL para la imagen de la receta!</label>
                         <input
                             className=''
                             type="text"
@@ -138,39 +128,37 @@ const Form = () => {
                             value={recipeInfo.Imagen}
                             onChange={(evento) => handleChange(evento)}
                         />
-                        <img src={recipeInfo.Imagen} alt='No se ha encontrado una Imagen con esta URL' />
-
-
+                        <img src={recipeInfo.Imagen} alt='No se ha encontrado una imagen'/>
+                        
 
                         <label htmlFor="selectDiet">Selecciona el tipo de dieta</label>
-                        {/* <div className='dietasA' onChange={(event)=>handleDietChange(event)}></div>
-                        {
-                        listaDietas.map((elemento)=>(
-                            <div>
-                                <input type='checkBox'className={estilo.pruebaI} value={elemento}></input>
-                                <label htmlFor="dietas">{elemento.toUpperCase()}</label>
-                            </div>
-                        ))
-                        } */}
-                        <div className="" onChange={(e) => handleDietChange(e)}>
-                            {lis?.map((e) => (
-                                <div key={e}>
-                                    <input type="checkbox" name="diets" value={e} />
-                                    <label>{e.toUpperCase()}</label>
+                        <div className={estilo.probandoCheckBOX} onChange={(evento) => handleDietChange(evento)}>
+                            {lis.map((elemento) => (
+                                <div key={elemento.id} className={''}>
+                                    <input 
+                                    type="checkbox" 
+                                    name="Diets" 
+                                    value={elemento.Nombre}
+                                    checked={recipeInfo.Diets.includes(elemento.Nombre)}
+                                    />
+                                    <label>{elemento.Nombre}</label>
                                 </div>
                             ))}
+                        <label style={{color: 'red'}}>{recipeInfo.Diets.length===0 && 'Selecciona una dieta'}</label>
                         </div>
 
-
-
-
-
-
-
-
-                        {!recipeInfo.Nombre || !recipeInfo.Resumen_Del_Plato || !recipeInfo.Paso_A_Paso || recipeInfo.Health_Score === '1' ? (
+                        {
+                        !recipeInfo.Nombre || 
+                        !recipeInfo.Resumen_Del_Plato || 
+                        !recipeInfo.Paso_A_Paso || 
+                        recipeInfo.Health_Score === '1'  || 
+                        recipeInfo.Diets.length===0
+                        ? 
+                        (
                             <button disabled id='btn'>CREAR</button>
-                        ) : (
+                        ) 
+                        : 
+                        (
                             <button id='btn'>CREAR</button>
                         )}
                     </div>

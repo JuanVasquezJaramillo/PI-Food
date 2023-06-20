@@ -12,22 +12,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRecipes, getRecipesByName, getDiets } from './Redux/actions';
 
 function App() {
-  
-  // const allRecipes = useSelector((state) => state.recipes)
-
-  // const [currentPag, setCurrentPag] = useState(1);
-  // const [cantidadPag, setCantidadPag] = useState(10);
-
-
-  // const dispatch = useDispatch()
-  // const aux = allRecipes.length / cantidadPag
-  // useEffect(() => {
-  //   dispatch(getRecipes());
-  // }, [dispatch])
-
-  // console.log("probandoPag", aux);
-
-
   return (
     <div className="App">
       <Routes>

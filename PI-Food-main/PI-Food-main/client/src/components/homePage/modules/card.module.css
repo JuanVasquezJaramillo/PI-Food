@@ -1,11 +1,6 @@
 .contenedor{
-    /* display: flex;
-    flex-direction: column; */
     /* background-image:  linear-gradient( #11862b,  #45fa1800);
-    border: 5px solid black;
-    height: fit-content;
-    width: auto;
-    text-align: center; */
+    */
     display: flex;
     flex-direction: column;
     background-color: #fdddca;

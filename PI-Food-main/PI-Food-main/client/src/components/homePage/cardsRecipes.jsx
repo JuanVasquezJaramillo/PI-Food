@@ -6,15 +6,19 @@ const Cards = ({allRecipes}) => {
       <div className={estilo.list}>
          {
             
-            allRecipes?.map(({id, title, image, diets})=>{
+            allRecipes?.map(({id, Nombre, Imagen, Diets, Health_Score})=>{
                return <Card
                key={id}
-                title={title}
-                image={image}
-                diets={diets}
+                Nombre={Nombre}
+                Imagen={Imagen}
+                Diets={Diets}
                />
             })
          }
       </div>);
+
+      
+// Health_Score={Health_Score} Para mostrar HS en la Card
 }
 export default Cards;
+

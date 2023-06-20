@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import SearchBar from '../homePage/searchBar';
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getRecipesByName } from '../../Redux/actions';
 import estilo from '../detailPage/detailpage.module.css'
@@ -12,18 +12,14 @@ const Detail = () => {
     const dispatch = useDispatch()
     useEffect(()=>{
         dispatch(getRecipesByName(name));
-        console.log("-----DETAIL-------",dispatch(getRecipesByName(name)));
     }, [dispatch, name])
 
     const res = useSelector((state)=> state.recipes)
-    //console.log("PROBANDO PROBANDO", res[0].analyzedInstructions.map((prop)=>prop.steps.map((prop)=>prop.step)))
     
-    //const recorriendoHastaNumber = res[0].analyzedInstructions.map((prop)=>prop.steps.map((prop)=>prop.number));
-    
-    const pasos = res[0].analyzedInstructions.map((prop)=>prop.steps.map((prop)=>prop.step))
-    
-    //console.log("BANDERA", recorriendoHastaNumber);
-    
+    const pasos = res[0].analyzedInstructions?.map((prop)=>prop.steps.map((prop)=>prop.step))
+
+    console.log("PROBANDO DETAIL", res);
+   
     return(
     <div>
         <div className={estilo.prueba}>
@@ -33,31 +29,23 @@ const Detail = () => {
                 {
                     res?
                     <div>
-                    <h1>ID: {res[0].id}</h1>
-                    <img src={tenedor} className={estilo.tamaNio}></img>
-                    <img className={estilo.imagen} src={res[0].image}></img>
-                    <img src= {cuchillo}></img>
-                    <h1>Nombre: {res[0].title}</h1>
+                    <h1>ID: {res[0].id ? res[0].id : res[0].id}</h1>
+                    <img src={tenedor} className={estilo.tamaNio} alt='NOT FOUND TENEDOR.png'></img>
+                    <img className={estilo.imagen} src={res[0].image ? res[0].image : res[0].Imagen} alt='NOT FOUND RECIPE IMG'></img>
+                    <img src= {cuchillo} alt='NOT FOUND CUCHILLO.png'></img>
+                    <h1>Nombre: </h1>
+                    <h2>{res[0].title ? res[0].title : res[0].Nombre}</h2>
                     <h2>RESUMEN: </h2>
-                    <p>{res[0].summary.replace(/<[^>]*>?/g, "")}</p>
-                    <h1>Healthly level: {res[0].healthScore}</h1>
-                    {pasos?
-                    (<div>
-                        <h2>PASO A PASO:</h2>
-                        <p>{pasos}</p>
+                    <p>{res[0].summary ? res[0].summary.replace(/<[^>]*>?/g, "") : res[0].Resumen_Del_Plato}</p>
+                    <h1>Healthly level: {res[0].healthScore ? res[0].healthScore : res[0].Health_Score}</h1>
+                    <h2>PASO A PASO:</h2>
+                    <p>{pasos ? pasos : res[0].Paso_A_Paso}</p>
+                    <h2>Dietas: </h2>
+                    <p>{res[0].diets ? res[0].diets.join(', ') : res[0].Diets}</p>
                     </div>
-                    ) : (<p>NO HAY PASO A PASO DE ESTA RECETA</p>)}
-                    {
-                        res[0].diets?(
-                            <div>
-                                <h2>Dietas: {res[0].diets.join(', ')}</h2>
-                            </div>
-                        ) : (<h2>No hay dietas disponibles</h2>)
-                    }
-                    </div>
-                    :<h1>No hay detalles...</h1>
+                    :
+                    <h1>No se encontraron detalles...</h1>
                 }
-                    
             </div>
     </div>
 )

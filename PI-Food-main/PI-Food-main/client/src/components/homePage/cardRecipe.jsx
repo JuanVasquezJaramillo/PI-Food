@@ -3,14 +3,15 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import estilo from './modules/card.module.css'
 
-const Card = ({id, title, image, diets}) =>{
+const Card = ({id, Nombre, Imagen, Diets, Health_Score}) =>{
     return(
             <div className={estilo.contenedor}>
-            <Link to={`/detail/${title}`}>
-            <img src={image}></img>
+            <Link to={`/detail/${Nombre}`}>
+            <img src={Imagen}></img>
             </Link>
-            <h1>{title}</h1>
-            <h1>Tipo de dieta: {diets.join(', ')}</h1>
+            <h1>{Nombre}</h1>
+            <h1>Tipo de dieta: {Diets}</h1>
+            {/* <h1>HealthScore: {Health_Score}</h1> */}
             </div>
     )
 }
