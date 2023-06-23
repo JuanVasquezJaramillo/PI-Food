@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
             let recetasBD = await Recipe.findAll()
             let receta = recetasBD.filter((receta)=> receta.Nombre.toLowerCase().includes(name.toLowerCase()));
             if(receta.length ===0 || !receta){  
-                const response = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY5}&addRecipeInformation=true&number=100`)).data.results
+                const response = (await axios(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY}&addRecipeInformation=true&number=100`)).data.results
                 let recetaP = response.filter((recipe) => recipe.title.toLowerCase().includes(name.toLowerCase()));
                 recetaP.length ? res.status(200).json(recetaP) : res.status(404).send('NOT FOUND')
             }else{
