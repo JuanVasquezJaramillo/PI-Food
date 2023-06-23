@@ -51,6 +51,18 @@ export const getRecipesBD = () => {
     };
 }
 
+//PARA MOSTRAR SOLO RECETAS DE API
+// export const getRecipesAPI = () => {
+//     return async (dispatch) => {
+//         const response = (await axios.get("http://localhost:3001/recipesAPI"));
+//         return dispatch({
+//             type: "GET_RECIPES_API",
+//             payload: response.data,
+//         })
+//     }
+// }
+
+
 //METODO POST
 export const postRecipe = (recipe) => async (dispatch) => {
     try {

@@ -1,5 +1,3 @@
-import PropTypes from 'prop-types';
-
 import { Link } from 'react-router-dom';
 import estilo from './modules/card.module.css'
 

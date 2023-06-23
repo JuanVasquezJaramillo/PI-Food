@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getRecipes, getRecipesByName, getDiets, filterTypeDiets, orderRecipesByName, orderRecipesByHealth, getRecipesBD } from '../../Redux/actions';
+import { getRecipes, getRecipesByName, getDiets, filterTypeDiets, orderRecipesByName, orderRecipesByHealth, getRecipesBD, getRecipesAPI } from '../../Redux/actions';
 import SearchBar from './searchBar';
 import estilo from './modules/homePage.module.css';
 import Cards from './cardsRecipes';
@@ -17,6 +17,7 @@ const Home = () => {
     const [defaultScore, setDefaultScore] = useState('porDefecto1'); 
     const [defaultDiet, setDefaultDiet] = useState('porDefecto2'); 
     const [defaultOrigin, setDefaultOrigin] = useState('porDefecto3');
+    //const [defaultOriginAPI, setDefaultOriginAPI] = useState('porDefecto4'); //Forma parte del mostrado de recetas API
 
     console.log("PROBANDO HOME", allRecipes)
 
@@ -37,11 +38,8 @@ const Home = () => {
         dispatch(getRecipesByName(name));
         setName('')
         setCurrentPag(1);
-        if(name === ''){
-            // alert('Debes ingresar un nombre')
-            return(
-                <div></div>
-            )
+        if(!name.length){
+            alert('Debes ingresar un nombre')
         }
     }
 
@@ -70,28 +68,36 @@ const Home = () => {
         dispatch(getRecipesBD())
         setCurrentPag(1);
         setDefaultOrigin(`${event.target.value}`)
-    }
+    }   
+
+    //METODO PARA MOSTRAR SOLO LAS DE LA API
+    // const handleFilterOriginAPI = (event) => {
+    //     dispatch(getRecipesAPI())
+    //     setCurrentPag(1);
+    //     setDefaultOriginAPI(`${event.target.value}`)
+    // }
 
 
     //METODO PARA LIMPIAR FILTROS 
     
     const clearFilters = () => {
         dispatch(getRecipes()); // Vuelve a obtener todas las recetas sin aplicar filtros
-        setCurrentPag(1); // Reinicia la página actual del paginado
+        setCurrentPag(1);
         setDefaultOrder('porDefecto');
         setDefaultScore('porDefecto1');
         setDefaultDiet('porDefecto2');
         setDefaultOrigin('porDefecto3');
+       // setDefaultOriginAPI('porDefecto4'); //Forma parte del mostrado de recetas API
       };
 
 
 
     //LÓGICA PAGINADO
     const [currentPag, setCurrentPag] = useState(1);
-    const [cantidadPorPag] = useState(10);
-    const lastRecipeIndex = currentPag * cantidadPorPag
-    const firstRecipeIndex = lastRecipeIndex - cantidadPorPag
-    const currentRecipes = allRecipes.slice(firstRecipeIndex, lastRecipeIndex)
+    const [cantidadPorPag] = useState(9);
+    const indiceUltimaReceta = currentPag * cantidadPorPag
+    const indicePrimerReceta = indiceUltimaReceta - cantidadPorPag
+    const currentRecipes = allRecipes.slice(indicePrimerReceta, indiceUltimaReceta)
 
     const paginado = (pageNumber) => {
         setCurrentPag(pageNumber)
@@ -137,14 +143,25 @@ const Home = () => {
 
                     <select onChange={event => handleFilterOrigin(event)} className={estilo.select} value={defaultOrigin}>
                         <option value='porDefecto3'>Seleccionar filtro</option>
-                        {/* <option value='originApi'>Originario de Api</option> */}
                         <option value='originBD'>Creado por ti</option>
                     </select>
+
+                    
+                    {/* 
+                    PARA MOSTRAR SOLO LAS RECETAS DE LA API
+                    <select onChange={event => handleFilterOriginAPI(event)} className={estilo.select} value={defaultOriginAPI}>
+                        <option value='porDefecto4'>Seleccionar filtro</option>
+                        <option value='originAPI'>Creado por Spoonacular</option>
+                    </select> */}
+
                 </div>
 
             </div>
             <div><button onClick={clearFilters} className={''}>LIMPIAR FILTROS</button></div>
             <div className={estilo.contenedor}>
+                {
+                    allRecipes.length===0?<div className={estilo.contenedor}><h1>NO HAY RECETAS EN ESTE MOMENTO</h1></div>:null
+                }
                 <Cards allRecipes={currentRecipes}></Cards>
             </div>
         </div>

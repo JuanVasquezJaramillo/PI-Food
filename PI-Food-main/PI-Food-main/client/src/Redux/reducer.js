@@ -2,6 +2,7 @@ const initialState = {
     recipes: [],
     diets: [],
     detail: [],
+    copyRecipes: [],
 }
 
 const reducer = (state = initialState, action) => {
@@ -12,6 +13,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 recipes: action.payload,
+                copyRecipes: action.payload,
             }
         case 'GET_DIETS':
             return {
@@ -23,6 +25,12 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 recipes: action.payload,
             }
+        //PARA MOSTRAR LAS RECETAS DE LA API    
+        // case 'GET_RECIPES_API':
+        //     return {
+        //         ...state,
+        //         recipes: action.payload,
+        //     }    
         case "GET_NAME_RECIPE":
             return {
                 ...state,
@@ -33,14 +41,14 @@ const reducer = (state = initialState, action) => {
                 ...state,
             }
         case 'FILTER_DIETS':
-            const filtrarDietas = [...state.recipes]
+            const filtrarDietas = state.recipes
             const dietasFiltradas =
                 action.payload === "porDefecto2"
                     ? filtrarDietas
                     : filtrarDietas.filter((recipe) => recipe.Diets.includes(action.payload))
             return {
                 ...state,
-                recipes: dietasFiltradas
+                recipes: dietasFiltradas,
             }
         case 'ORDER_NAME':
             const orderRecipes = [...state.recipes];
